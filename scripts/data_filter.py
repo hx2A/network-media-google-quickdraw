@@ -9,6 +9,9 @@ DATA_DIR = '/local/DATA/itp/networked_media/google_quickdraw'
 SIZE_LIMIT = 25
 FILE_LIMIT = 25
 
+with open(os.path.join(DATA_DIR, 'lookups', 'iso_codes.json'), 'r') as f:
+    iso_codes = json.load(f)
+
 files = glob.glob(os.path.join(DATA_DIR, 'clean', '*.p'))
 if FILE_LIMIT:
     files = sorted(np.random.choice(files, size=FILE_LIMIT, replace=False))
@@ -34,9 +37,10 @@ for i, filename in enumerate(files):
         data.groupby('c').apply(data_filtering).reset_index(drop=True))
 
 data_filtered = pd.concat(all_data).reset_index()
+# discard countries we have no iso code for
+data_filtered = data_filtered[data_filtered['c'].isin(iso_codes.keys())]
 
 data_file = 'data_{0}_{1}.p'.format(SIZE_LIMIT, FILE_LIMIT)
-
 data_filtered.to_pickle(os.path.join(DATA_DIR, 'filtered', data_file))
 
 
@@ -51,11 +55,13 @@ with open(os.path.join(DATA_DIR, 'filtered', json_file), 'w') as f:
     print("Wrote {0} records".format(len(records)))
 
 countries = data_filtered['c'].unique().tolist()
-categories = data_filtered['w'].unique().tolist()
+countries.sort(key=lambda cc: iso_codes[cc])
 
 countries_file = 'countries_{0}_{1}.json'.format(SIZE_LIMIT, FILE_LIMIT)
 with open(os.path.join(DATA_DIR, 'lookups', countries_file), 'w') as f:
     json.dump(countries, f)
+
+categories = data_filtered['w'].unique().tolist()
 
 categories_file = 'categories_{0}_{1}.json'.format(SIZE_LIMIT, FILE_LIMIT)
 with open(os.path.join(DATA_DIR, 'lookups', categories_file), 'w') as f:
