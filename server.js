@@ -48,9 +48,9 @@ app.get('/sketches/:cc/:cat/:rec', function(req, res) {
   debug('Return sketches', req.params.cc, req.params.cat);
 
   var query = {};
-  var cc = req.params.cc.toUpperCase();
-  var cat = req.params.cat.toLowerCase();
-  var rec = req.params.rec.toLowerCase();
+  var cc = bleach.sanitize(req.params.cc.toUpperCase(), bleach_options);
+  var cat = bleach.sanitize(req.params.cat.toLowerCase(), bleach_options);
+  var rec = bleach.sanitize(req.params.rec.toLowerCase(), bleach_options);
 
   if (cc != 'all') {
     query.c = cc;
