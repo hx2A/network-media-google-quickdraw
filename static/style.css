@@ -51,6 +51,9 @@ label.label {
 .overflow {
   height: 500px;
 }
+.left_align {
+    text-align:left;
+}
 h1.title {
   text-align: center;
   margin: 20px;

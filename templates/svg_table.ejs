@@ -45,7 +45,7 @@
 
       <div class="drawing">
         <svg viewBox="0 0 255 255" height="200px" width="200px">
-          <path d="<%= svg_path(datum['d']) %>" style="fill:none;stroke:#330000;stroke-width:1.0px;stroke-opacity:1" />
+          <path d="<%= svg_path(datum['d']) %>" style="fill:none;stroke:#220000;stroke-width:1.0px;stroke-opacity:1" />
         </svg>
         <p class="drawing">
           <span class='labels'>
@@ -64,9 +64,9 @@
 
         <script>
           $(function() {
-            $("#countries").selectmenu().selectmenu("menuWidget").addClass("overflow");
-            $("#categories").selectmenu().selectmenu("menuWidget").addClass("overflow");
-            $("#recognized").selectmenu();
+            $("#countries").selectmenu().selectmenu("menuWidget").addClass("overflow left_align");
+            $("#categories").selectmenu().selectmenu("menuWidget").addClass("overflow left_align");
+            $("#recognized").selectmenu().selectmenu("menuWidget").addClass("left_align");
             $("#submit").button();
             
 
