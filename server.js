@@ -110,7 +110,7 @@ app.get('/drawings/:cc/:cat/:rec', function(req, res) {
 
   db.google_sketches.find(query, function(err, data) {
     if (data.length == 0) {
-      res.send('<p>No drawings meet that criteria</p>');
+      res.send('<p class="ui-state-error ui-corner-all error">No drawings found meeting this criteria</p>');
     } else {
       res.render('drawings', {
         data: data,

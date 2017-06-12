@@ -10,6 +10,9 @@ div.page {
   width: 980px;
   margin: 0 auto;
 }
+div.drawings {
+  padding: 10px;
+}
 div.drawing {
   width: 200px;
   display: inline;
@@ -23,6 +26,11 @@ p.drawing {
   float: auto;
   margin: 10px 10px 0px 10px;
   padding: 0px;
+}
+p.error {
+  width: 500px;
+  display: inline;
+  padding: 10px 50px;
 }
 span.info {
   display: block;
