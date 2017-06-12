@@ -18,17 +18,13 @@
         <label for="categories" class="label">Category: </label>
         <select name="categories" id="categories">
           <% ref.categories.forEach(function(c) { -%>
-            <option value="<%= c %>">
-              <%= String.toTitleCase(c) -%>
-            </option>
+            <option value="<%= c %>"><%= String.toTitleCase(c) -%></option>
             <% }); -%>
         </select>
         <label for="countries" class="label">Country: </label>
         <select name="countries" id="countries">
           <% ref.countries.forEach(function(c) { -%>
-            <option value="<%= c.toLowerCase() %>">
-              <%= ref.isoCodes[c] -%>
-            </option>
+            <option value="<%= c.toLowerCase() %>"><%= ref.isoCodes[c] -%></option>
             <% }); -%>
         </select>
         <label for="recognized" class="label">Recognized by Google ML?</label>
