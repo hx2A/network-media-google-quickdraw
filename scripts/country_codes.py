@@ -50,6 +50,8 @@ iso_codes['VG'] = 'British Virgin Islands'
 iso_codes['VI'] = 'US Virgin Islands'
 iso_codes['VN'] = 'Vietnam'
 
+# make all the codes lowercase
+iso_codes.index = iso_codes.index.str.lower()
 
 with open(os.path.join(DATA_DIR, 'lookups', 'iso_codes.json'), 'w') as f:
     f.write(iso_codes.to_json())

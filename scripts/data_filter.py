@@ -7,7 +7,7 @@ import pandas as pd
 
 DATA_DIR = '/local/DATA/itp/networked_media/google_quickdraw'
 SIZE_LIMIT = 25
-FILE_LIMIT = None
+FILE_LIMIT = 100
 
 with open(os.path.join(DATA_DIR, 'lookups', 'iso_codes.json'), 'r') as f:
     iso_codes = json.load(f)
@@ -37,6 +37,9 @@ for i, filename in enumerate(files):
         data.groupby('c').apply(data_filtering).reset_index(drop=True))
 
 data_filtered = pd.concat(all_data).reset_index()
+
+# make the country codes all lowercase
+data_filtered['c'] = data_filtered['c'].str.lower()
 # discard countries we have no iso code for
 data_filtered = data_filtered[data_filtered['c'].isin(iso_codes.keys())]
 
