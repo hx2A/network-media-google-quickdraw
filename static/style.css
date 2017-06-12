@@ -13,6 +13,14 @@ div.page {
 div.drawings {
   padding: 10px;
 }
+div.instructions {
+  position: relative;
+  left: 50%;
+  margin-left: -400px;
+  width: 800px;
+  text-align: left;
+  padding-bottom: 20px;
+}
 div.drawing {
   width: 200px;
   display: inline;
