@@ -4,15 +4,9 @@
       <path d="<%= svg_path(datum['d']) %>" style="fill:none;stroke:#220000;stroke-width:1.0px;stroke-opacity:1" />
     </svg>
     <p class="drawing">
-      <span class='labels'>
-      Country: <br>
-      Category: <br>
-      Recognized: <br>
-    </span>
-      <span class='info'>
-      <%= ref.isoCodes[datum['c']] %> <br>
-      <%= String.toTitleCase(datum['w']) %> <br>
-      <%= datum['r'] %> <br>
+      <span class='info'><%= ref.isoCodes[datum['c']] -%></span>
+      <span class='info'><%= String.toTitleCase(datum['w']) -%></span>
+      <span class='info'><%= ref.recognized[datum['r']] %> -%></span>
     </span>
     </p>
   </div>

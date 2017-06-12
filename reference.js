@@ -8,3 +8,5 @@ exports.countries = JSON.parse(fs.readFileSync(countriesPath, 'UTF-8'));
 
 var categoriesPath = './reference/categories.json';
 exports.categories = JSON.parse(fs.readFileSync(categoriesPath, 'UTF-8'));
+
+exports.recognized = {true: 'Recognized', false: 'Not Recognized'}
