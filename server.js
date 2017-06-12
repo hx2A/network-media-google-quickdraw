@@ -33,9 +33,9 @@ app.set('views', 'templates/');
 app.use(express.static('static'));
 
 // database connection
-var connectionString = String.format('{0}:{1}@ds163681.mlab.com:63681/network-media',
-  options.credentials.username, options.credentials.password);
-// var connectionString = "localhost:27017/network-media"
+// var connectionString = String.format('{0}:{1}@ds163681.mlab.com:63681/network-media',
+//   options.credentials.username, options.credentials.password);
+var connectionString = "localhost:27017/network-media"
 var db = mongojs(connectionString, ["google_sketches"]);
 
 // input cleaning

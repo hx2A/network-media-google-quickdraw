@@ -7,7 +7,7 @@ import pandas as pd
 
 DATA_DIR = '/local/DATA/itp/networked_media/google_quickdraw'
 SIZE_LIMIT = 25
-FILE_LIMIT = 100
+FILE_LIMIT = None
 
 with open(os.path.join(DATA_DIR, 'lookups', 'iso_codes.json'), 'r') as f:
     iso_codes = json.load(f)
@@ -69,9 +69,3 @@ categories = data_filtered['w'].unique().tolist()
 categories_file = 'categories_{0}_{1}.json'.format(SIZE_LIMIT, FILE_LIMIT)
 with open(os.path.join(DATA_DIR, 'lookups', categories_file), 'w') as f:
     json.dump(categories, f)
-
-
-# mongoimport -h ds163681.mlab.com:63681 -d network-media -c google_sketches -u jim -p BExvuotBesesEp9 --jsonArray  --file data.json
-
-# cp categories_25_25.json /mnt/itp_do/Projects/midterm/reference/categories.json
-# cp countries_25_25.json /mnt/itp_do/Projects/midterm/reference/countries.json
