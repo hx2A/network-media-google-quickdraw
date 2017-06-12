@@ -15,19 +15,19 @@
   <div class="">
     <div>
       <form id="form">
-        <label for="countries" class="label">Country: </label>
-        <select name="countries" id="countries">
-          <% ref.countries.forEach(function(c) { -%>
-            <option value="<%= c.toLowerCase() %>">
-              <%= ref.isoCodes[c] %>
-            </option>
-            <% }); -%>
-        </select>
         <label for="categories" class="label">Category: </label>
         <select name="categories" id="categories">
           <% ref.categories.forEach(function(c) { -%>
             <option value="<%= c %>">
-              <%= String.toTitleCase(c) %>
+              <%= String.toTitleCase(c) -%>
+            </option>
+            <% }); -%>
+        </select>
+        <label for="countries" class="label">Country: </label>
+        <select name="countries" id="countries">
+          <% ref.countries.forEach(function(c) { -%>
+            <option value="<%= c.toLowerCase() %>">
+              <%= ref.isoCodes[c] -%>
             </option>
             <% }); -%>
         </select>
@@ -38,6 +38,10 @@
           <option value="all">Recognized and Unrecognized</option>
         </select>
         <input id="submit" type="submit" value="Submit">
+        
+        <input id="categoryStart" type="hidden" value="<%= category %>">
+        <input id="countryStart" type="hidden" value="<%= countryCode.toLowerCase() %>">
+        <input id="recognizedStart" type="hidden" value="<%= recognized %>">
       </form>
     </div>
 
@@ -68,7 +72,10 @@
             $("#categories").selectmenu().selectmenu("menuWidget").addClass("overflow left_align");
             $("#recognized").selectmenu().selectmenu("menuWidget").addClass("left_align");
             $("#submit").button();
-            
+
+            $('#countries').val($('#countryStart').val()).selectmenu('refresh');
+            $('#categories').val($('#categoryStart').val()).selectmenu('refresh');
+            $('#recognized').val($('#recognizedStart').val()).selectmenu('refresh');
 
             $("#form").submit(function(e) {
               e.preventDefault();

@@ -48,9 +48,9 @@ app.get('/sketches/:cc/:cat/:rec', function(req, res) {
   debug('Return sketches', req.params.cc, req.params.cat);
 
   var query = {};
-  var cc = bleach.sanitize(req.params.cc.toUpperCase(), bleach_options);
-  var cat = bleach.sanitize(req.params.cat.toLowerCase(), bleach_options);
-  var rec = bleach.sanitize(req.params.rec.toLowerCase(), bleach_options);
+  var cc = bleach.sanitize(req.params.cc, bleach_options).toUpperCase();
+  var cat = bleach.sanitize(req.params.cat, bleach_options).toLowerCase();
+  var rec = bleach.sanitize(req.params.rec, bleach_options).toLowerCase();
 
   if (cc != 'all') {
     query.c = cc;
@@ -67,6 +67,9 @@ app.get('/sketches/:cc/:cat/:rec', function(req, res) {
 
   db.google_sketches.find(query, function(err, data) {
     res.render('svg_table', {
+      countryCode: cc,
+      category: cat,
+      recognized: rec,
       data: data,
       svg_path: svg_path,
       ref: reference

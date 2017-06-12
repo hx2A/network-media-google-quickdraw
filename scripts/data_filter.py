@@ -7,7 +7,7 @@ import pandas as pd
 
 DATA_DIR = '/local/DATA/itp/networked_media/google_quickdraw'
 SIZE_LIMIT = 25
-FILE_LIMIT = 25
+FILE_LIMIT = None
 
 with open(os.path.join(DATA_DIR, 'lookups', 'iso_codes.json'), 'r') as f:
     iso_codes = json.load(f)
