@@ -59,7 +59,7 @@ app.get('/filter/:cc/:cat/:rec', function(req, res) {
   debug('Return sketches', req.params.cc, req.params.cat);
 
   var query = {};
-  var cc = bleach.sanitize(req.params.cc, bleach_options).toUpperCase();
+  var cc = bleach.sanitize(req.params.cc, bleach_options).toLowerCase();
   var cat = bleach.sanitize(req.params.cat, bleach_options).toLowerCase();
   var rec = bleach.sanitize(req.params.rec, bleach_options).toLowerCase();
 
@@ -76,7 +76,7 @@ app.get('/filter/:cc/:cat/:rec', function(req, res) {
     query.r = false;
   }
   
-  var url = String.format('/drawings/{0}/{1}/{2}', cc, cat, rec.toLowerCase());
+  var url = String.format('/drawings/{0}/{1}/{2}', cc, cat, rec);
 
   res.render('form', {
     countryCode: cc,
@@ -91,7 +91,7 @@ app.get('/drawings/:cc/:cat/:rec', function(req, res) {
   debug('Return drawings', req.params.cc, req.params.cat);
 
   var query = {};
-  var cc = bleach.sanitize(req.params.cc, bleach_options).toUpperCase();
+  var cc = bleach.sanitize(req.params.cc, bleach_options).toLowerCase();
   var cat = bleach.sanitize(req.params.cat, bleach_options).toLowerCase();
   var rec = bleach.sanitize(req.params.rec, bleach_options).toLowerCase();
 

@@ -22,7 +22,7 @@
         <label for="countries" class="label">Country: </label>
         <select name="countries" id="countries">
           <% ref.countries.forEach(function(c) { -%>
-            <option value="<%= c.toLowerCase() %>"><%= ref.isoCodes[c] -%></option>
+            <option value="<%= c %>"><%= ref.isoCodes[c] -%></option>
             <% }); -%>
         </select>
         <label for="recognized" class="label">Recognized by Google ML?</label>
@@ -34,7 +34,7 @@
         <input id="submit" type="submit" value="Submit">
 
         <input id="categoryStart" type="hidden" value="<%= category %>">
-        <input id="countryStart" type="hidden" value="<%= countryCode.toLowerCase() %>">
+        <input id="countryStart" type="hidden" value="<%= countryCode %>">
         <input id="recognizedStart" type="hidden" value="<%= recognized %>">
         <input id="drawingsURL" type="hidden" value="<%= url %>">
       </form>
@@ -65,7 +65,7 @@
 
         $("#form").submit(function(e) {
           e.preventDefault();
-          var country = $("#countries").val().toLowerCase();
+          var country = $("#countries").val();
           var category = $("#categories").val();
           var recognized = $("#recognized").val();
           var url = '/filter/' + country + '/' + category + '/' + recognized;
