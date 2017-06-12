@@ -24,12 +24,6 @@ p.drawing {
   margin: 10px 10px 0px 10px;
   padding: 0px;
 }
-p.dropdowns {
-  display: inline;
-  float: left;
-  text-align: left;
-  margin: 0px 2px;
-}
 span.info {
   display: block;
   float: auto;
