@@ -40,6 +40,7 @@ data_filtered = pd.concat(all_data).reset_index()
 
 # make the country codes all lowercase
 data_filtered['c'] = data_filtered['c'].str.lower()
+data_filtered['w'] = data_filtered['w'].str.lower()
 # discard countries we have no iso code for
 data_filtered = data_filtered[data_filtered['c'].isin(iso_codes.keys())]
 
