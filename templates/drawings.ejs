@@ -1,0 +1,19 @@
+<% data.forEach(function(datum) { %>
+  <div class="drawing">
+    <svg viewBox="0 0 255 255" height="200px" width="200px">
+      <path d="<%= svg_path(datum['d']) %>" style="fill:none;stroke:#220000;stroke-width:1.0px;stroke-opacity:1" />
+    </svg>
+    <p class="drawing">
+      <span class='labels'>
+      Country: <br>
+      Category: <br>
+      Recognized: <br>
+    </span>
+      <span class='info'>
+      <%= ref.isoCodes[datum['c']] %> <br>
+      <%= String.toTitleCase(datum['w']) %> <br>
+      <%= datum['r'] %> <br>
+    </span>
+    </p>
+  </div>
+<% }); %>

@@ -32,55 +32,47 @@
           <option value="all">Recognized and Unrecognized</option>
         </select>
         <input id="submit" type="submit" value="Submit">
-        
+
         <input id="categoryStart" type="hidden" value="<%= category %>">
         <input id="countryStart" type="hidden" value="<%= countryCode.toLowerCase() %>">
         <input id="recognizedStart" type="hidden" value="<%= recognized %>">
+        <input id="drawingsURL" type="hidden" value="<%= url %>">
       </form>
     </div>
 
-    <% data.forEach(function(datum) { %>
+    <div id="drawings"></div>
 
-      <div class="drawing">
-        <svg viewBox="0 0 255 255" height="200px" width="200px">
-          <path d="<%= svg_path(datum['d']) %>" style="fill:none;stroke:#220000;stroke-width:1.0px;stroke-opacity:1" />
-        </svg>
-        <p class="drawing">
-          <span class='labels'>
-          Country: <br>
-          Category: <br>
-          Recognized: <br>
-        </span>
-          <span class='info'>
-          <%= ref.isoCodes[datum['c']] %> <br>
-          <%= String.toTitleCase(datum['w']) %> <br>
-          <%= datum['r'] %> <br>
-        </span>
-        </p>
-      </div>
-      <% }); %>
+    <script>
+      $(function() {
+        $("#countries").selectmenu().selectmenu("menuWidget").addClass("overflow left_align");
+        $("#categories").selectmenu().selectmenu("menuWidget").addClass("overflow left_align");
+        $("#recognized").selectmenu().selectmenu("menuWidget").addClass("left_align");
+        $("#submit").button();
 
-        <script>
-          $(function() {
-            $("#countries").selectmenu().selectmenu("menuWidget").addClass("overflow left_align");
-            $("#categories").selectmenu().selectmenu("menuWidget").addClass("overflow left_align");
-            $("#recognized").selectmenu().selectmenu("menuWidget").addClass("left_align");
-            $("#submit").button();
+        $('#countries').val($('#countryStart').val()).selectmenu('refresh');
+        $('#categories').val($('#categoryStart').val()).selectmenu('refresh');
+        $('#recognized').val($('#recognizedStart').val()).selectmenu('refresh');
 
-            $('#countries').val($('#countryStart').val()).selectmenu('refresh');
-            $('#categories').val($('#categoryStart').val()).selectmenu('refresh');
-            $('#recognized').val($('#recognizedStart').val()).selectmenu('refresh');
-
-            $("#form").submit(function(e) {
-              e.preventDefault();
-              var country = $("#countries").val();
-              var category = $("#categories").val();
-              var recognized = $("#recognized").val();
-              var url = '/sketches/' + country + '/' + category + '/' + recognized;
-              window.location.href = url;
-            });
+        var url = $('#drawingsURL').val();
+        if (url != '') {
+          $.ajax({
+            url: url,
+            success: function(data) {
+              $("#drawings").html(data)
+            }
           });
-        </script>
+        }
+
+        $("#form").submit(function(e) {
+          e.preventDefault();
+          var country = $("#countries").val().toLowerCase();
+          var category = $("#categories").val();
+          var recognized = $("#recognized").val();
+          var url = '/filter/' + country + '/' + category + '/' + recognized;
+          window.location.href = url;
+        });
+      });
+    </script>
   </div>
 </body>
 

@@ -44,8 +44,51 @@ var bleach_options = {
   list: []
 };
 
-app.get('/sketches/:cc/:cat/:rec', function(req, res) {
+app.get('/filter', function(req, res) {
+  res.render('form', {
+    countryCode: 'us',
+    category: 'butterfly',
+    recognized: 'all',
+    url: '',
+    ref: reference
+  });
+
+});
+
+app.get('/filter/:cc/:cat/:rec', function(req, res) {
   debug('Return sketches', req.params.cc, req.params.cat);
+
+  var query = {};
+  var cc = bleach.sanitize(req.params.cc, bleach_options).toUpperCase();
+  var cat = bleach.sanitize(req.params.cat, bleach_options).toLowerCase();
+  var rec = bleach.sanitize(req.params.rec, bleach_options).toLowerCase();
+
+  if (cc != 'all') {
+    query.c = cc;
+  }
+  if (cat != 'all') {
+    query.w = cat;
+  }
+  if (rec == 'recognized') {
+    query.r = true;
+  }
+  if (rec == 'unrecognized') {
+    query.r = false;
+  }
+  
+  var url = String.format('/drawings/{0}/{1}/{2}', cc, cat, rec.toLowerCase());
+
+  res.render('form', {
+    countryCode: cc,
+    category: cat,
+    recognized: rec,
+    url: url,
+    ref: reference
+  });
+});
+
+app.get('/drawings/:cc/:cat/:rec', function(req, res) {
+  debug('Return drawings', req.params.cc, req.params.cat);
 
   var query = {};
   var cc = bleach.sanitize(req.params.cc, bleach_options).toUpperCase();
@@ -66,14 +109,15 @@ app.get('/sketches/:cc/:cat/:rec', function(req, res) {
   }
 
   db.google_sketches.find(query, function(err, data) {
-    res.render('svg_table', {
-      countryCode: cc,
-      category: cat,
-      recognized: rec,
-      data: data,
-      svg_path: svg_path,
-      ref: reference
-    });
+    if (data.length == 0) {
+      res.send('<p>No drawings meet that criteria</p>');
+    } else {
+      res.render('drawings', {
+        data: data,
+        svg_path: svg_path,
+        ref: reference
+      });
+    }
   });
 });
 
