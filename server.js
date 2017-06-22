@@ -6,14 +6,6 @@ var mongojs = require('mongojs');
 var options = require('./options');
 var reference = require('./reference');
 
-if (!String.format) {
-  String.format = function(format) {
-    var args = Array.prototype.slice.call(arguments, 1);
-    return format.replace(/{(\d+)}/g, function(match, number) {
-      return typeof args[number] != 'undefined' ? args[number] : match;
-    });
-  };
-};
 if (!String.toTitleCase) {
   String.toTitleCase = function(str) {
     return str.replace(/\w\S*/g, function(txt) {
@@ -76,7 +68,7 @@ app.get('/filter/:cc/:cat/:rec', function(req, res) {
     query.r = false;
   }
   
-  var url = String.format('/drawings/{0}/{1}/{2}', cc, cat, rec);
+  var url = `/drawings/${cc}/${cat}/${rec}`
 
   res.render('form', {
     countryCode: cc,
@@ -132,8 +124,8 @@ function svg_path(d) {
   return out;
 }
 
-
-
-var port = 8080;
-app.listen(port)
-debug("Server is running on port %d", port);
+const PORT = 8080;
+app.listen(PORT, () => {
+  debug(`Server is running on port ${PORT}`);
+});
+module.exports = app;
