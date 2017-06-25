@@ -2,5 +2,6 @@ node_modules/
 data/
 experiments/
 *.nogit
+sessions.db
 TODOs.txt
 
