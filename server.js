@@ -42,7 +42,6 @@ var bleach_options = {
   list: []
 };
 
-
 // *** routes ***
 app.get('/filter', function(req, res) {
   res.render('form', {
@@ -117,7 +116,7 @@ app.post('/drawings', function(req, res) {
     };
   }
 
-  db.google_sketches.find(query).sort('_id').limit(5, function(err, data) {
+  db.google_sketches.find(query).sort('_id').limit(50, function(err, data) {
     if (data.length == 0) {
       res.send('');
     } else {
