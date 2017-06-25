@@ -45,7 +45,6 @@ var bleach_options = {
 // *** routes ***
 app.get('/filter', function(req, res) {
   res.render('form', {
-    uuid: undefined,
     countryCode: 'us',
     category: 'butterfly',
     recognized: 'all',
@@ -76,7 +75,6 @@ app.get('/filter/:cc/:cat/:rec', function(req, res) {
   }
 
   res.render('form', {
-    uuid: uuidV1(),
     countryCode: cc,
     category: cat,
     recognized: rec,
