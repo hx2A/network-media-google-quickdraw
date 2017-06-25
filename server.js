@@ -45,8 +45,8 @@ var bleach_options = {
 // *** routes ***
 app.get('/filter', function(req, res) {
   res.render('form', {
-    countryCode: 'us',
-    category: 'butterfly',
+    countryCode: 'all',
+    category: 'all',
     recognized: 'all',
     state: 'init',
     ref: reference
