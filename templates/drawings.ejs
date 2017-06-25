@@ -1,14 +1,25 @@
 <% data.forEach(function(datum) { %>
   <div class="drawing ui-corner-all">
-    <input name="_id" type="hidden" value="<%= datum['_id'] %>">
+    <input name="_id" type="hidden" value="<%= datum['_id'] %>"/>
     <svg viewBox="0 0 255 255" height="200px" width="200px">
       <path d="<%= svg_path(datum['d']) %>" style="fill:none;stroke:#220000;stroke-width:1.0px;stroke-opacity:1" />
     </svg>
     <p class="drawing">
-      <span class='info'><%= ref.isoCodes[datum['c']] -%></span>
-      <span class='info'><%= String.toTitleCase(datum['w']) -%></span>
-      <span class='info'><%= ref.recognized[datum['r']] %> -%></span>
-    </span>
+      <% if (links.cc) { -%>
+        <span class='info'><a href="<%= String.format(links.cc, datum['c']) -%>"><%= ref.isoCodes[datum['c']] -%></a></span>
+      <% } else { -%>
+        <span class='info'><%= ref.isoCodes[datum['c']] -%></span>
+      <% } -%>
+      <% if (links.cat) { -%>
+        <span class='info'><a href="<%= String.format(links.cat, datum['w']) -%>"><%= String.toTitleCase(datum['w']) -%></a></span>
+      <% } else { -%>
+        <span class='info'><%= String.toTitleCase(datum['w']) -%></span>
+      <% } -%>
+      <% if (links.rec) { -%>
+        <span class='info'><a href="<%= String.format(links.rec, ref.recognizedURL[datum['r']]) -%>"><%= ref.recognized[datum['r']] %> -%></a></span>
+      <% } else { -%>
+        <span class='info'><%= ref.recognized[datum['r']] %> -%></span>
+      <% } -%>
     </p>
   </div>
-<% }); %>
+  <% }); %>

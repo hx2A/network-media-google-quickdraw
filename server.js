@@ -113,6 +113,18 @@ app.post('/drawings', function(req, res) {
       $gt: mongojs.ObjectId(last)
     };
   }
+  
+  // build name link urls
+  links = {};
+  if (cc == 'all') {
+    links.cc = `/filter/{0}/${cat}/${rec}`
+  }
+  if (cat == 'all') {
+    links.cat = `/filter/${cc}/{0}/${rec}`
+  }
+  if (rec == 'all') {
+    links.rec = `/filter/${cc}/${cat}/{0}`
+  }
 
   db.google_sketches.find(query).sort('_id').limit(50, function(err, data) {
     if (data.length == 0) {
@@ -121,6 +133,7 @@ app.post('/drawings', function(req, res) {
       res.render('drawings', {
         data: data,
         svg_path: svg_path,
+        links: links,
         ref: reference
       });
     }
@@ -135,6 +148,15 @@ if (!String.toTitleCase) {
     });
   };
 };
+
+if (!String.format) {
+  String.format = function(format) {
+    var args = Array.prototype.slice.call(arguments, 1);
+    return format.replace(/{(\d+)}/g, function(match, number) {
+      return typeof args[number] != 'undefined' ? args[number] : match;
+    });
+  };
+}
 
 function svg_path(d) {
   var out = '';

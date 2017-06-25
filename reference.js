@@ -10,3 +10,4 @@ var categoriesPath = './reference/categories.json';
 exports.categories = JSON.parse(fs.readFileSync(categoriesPath, 'UTF-8'));
 
 exports.recognized = {true: 'Recognized', false: 'Not Recognized'}
+exports.recognizedURL = {true: 'recognized', false: 'unrecognized'}
