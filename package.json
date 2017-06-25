@@ -12,9 +12,13 @@
   "dependencies": {
     "bleach": "^0.3.0",
     "body-parser": "^1.17.2",
+    "cookie-parser": "^1.4.3",
     "debug": "^2.6.8",
     "ejs": "^2.5.6",
     "express": "^4.15.3",
-    "mongojs": "^2.4.0"
+    "express-session": "^1.15.3",
+    "mongojs": "^2.4.0",
+    "nedb-session-store": "^1.1.1",
+    "uuid": "^3.1.0"
   }
 }

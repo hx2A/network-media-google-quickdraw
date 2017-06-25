@@ -36,6 +36,7 @@ p.drawing {
   padding: 0px;
 }
 p.error {
+  visibility: hidden;
   width: 500px;
   display: inline;
   padding: 10px 50px;

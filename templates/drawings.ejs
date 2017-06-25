@@ -1,5 +1,6 @@
 <% data.forEach(function(datum) { %>
   <div class="drawing ui-corner-all">
+    <input name="_id" type="hidden" value="<%= datum['_id'] %>">
     <svg viewBox="0 0 255 255" height="200px" width="200px">
       <path d="<%= svg_path(datum['d']) %>" style="fill:none;stroke:#220000;stroke-width:1.0px;stroke-opacity:1" />
     </svg>
