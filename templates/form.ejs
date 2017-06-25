@@ -13,6 +13,7 @@
   <h1 class="title">Doodles by Country</h1>
   <div class="">
     <div>
+      <% if (state == 'init') { -%>
       <div class="instructions">
         <p>
           Below are drawings from Google's Quick, Draw! <a href="https://github.com/googlecreativelab/quickdraw-dataset">dataset</a>. The data was collected by getting millions of people around the world to play a Pictionary-like <a href="https://quickdraw.withgoogle.com">game</a>          with a machine learning algorithm developed by Google.
@@ -22,6 +23,7 @@
           simple objects. I built this user interface to give myself and others the opportunity to find out.
         </p>
       </div>
+      <% } -%>
       <form id="form">
         <label for="categories" class="label">Category: </label>
         <select name="categories" id="categories">
