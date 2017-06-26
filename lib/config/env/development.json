@@ -1,0 +1,8 @@
+{
+  "connectionString": "localhost:27017/network-media",
+  "collection": "google_sketches",
+  "session": {
+    "maxAge": 600000,
+    "filename": "/tmp/sessions.db"
+  }
+}
