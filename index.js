@@ -5,10 +5,12 @@ const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const nedbstore = require('nedb-session-store')(session);
 const uuidV1 = require('uuid/v1');
+const mongojs = require('mongojs');
 
-const reference = require('_/reference');
 const util = require('_/util');
+const reference = require('_/reference');
 const db = require('_/db');
+const user = require('_/user');
 
 // setup express
 var app = express();
@@ -34,46 +36,8 @@ app.use(
 );
 
 // *** routes ***
-app.get('/filter', function(req, res) {
-  res.render('form', {
-    countryCode: 'all',
-    category: 'all',
-    recognized: 'all',
-    state: 'init',
-    ref: reference
-  });
-});
-
-app.get('/filter/:cc/:cat/:rec', function(req, res) {
-  debug('Return sketches', req.params.cc, req.params.cat);
-
-  var query = {};
-  var cc = util.sanitize(req.params.cc).toLowerCase();
-  var cat = util.sanitize(req.params.cat).toLowerCase();
-  var rec = util.sanitize(req.params.rec).toLowerCase();
-
-  if (cc != 'all') {
-    query.c = cc;
-  }
-  if (cat != 'all') {
-    query.w = cat;
-  }
-  if (rec == 'recognized') {
-    query.r = true;
-  }
-  if (rec == 'unrecognized') {
-    query.r = false;
-  }
-
-  res.render('form', {
-    countryCode: cc,
-    category: cat,
-    recognized: rec,
-    state: 'query',
-    util: util,
-    ref: reference
-  });
-});
+app.get('/filter', user.initFilter);
+app.get('/filter/:cc/:cat/:rec', user.filter);
 
 app.post('/drawings', function(req, res) {
   var cc = util.sanitize(req.body.cc).toLowerCase();
