@@ -30,7 +30,7 @@
           <option value="all">All</option>
           <% ref.categories.forEach(function(c) { -%>
             <option value="<%= c %>">
-              <%= String.toTitleCase(c) -%>
+              <%= util.toTitleCase(c) -%>
             </option>
             <% }); -%>
         </select>

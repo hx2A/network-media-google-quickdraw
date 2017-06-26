@@ -3,11 +3,13 @@ const bodyParser = require('body-parser');
 const bleach = require('bleach');
 const debug = require('debug')('itp');
 const mongojs = require('mongojs');
-const reference = require('_/reference');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const nedbstore = require('nedb-session-store')(session);
 const uuidV1 = require('uuid/v1');
+
+const reference = require('_/reference');
+const util = require('_/util');
 
 // setup express
 var app = express();
@@ -79,6 +81,7 @@ app.get('/filter/:cc/:cat/:rec', function(req, res) {
     category: cat,
     recognized: rec,
     state: 'query',
+    util: util,
     ref: reference
   });
 });
@@ -140,8 +143,8 @@ app.post('/drawings', function(req, res) {
     } else {
       res.render('drawings', {
         data: data,
-        svg_path: svg_path,
         links: links,
+        util: util,
         ref: reference
       });
     }
@@ -167,35 +170,6 @@ app.post('/flag', function(req, res) {
     }
   );
 });
-
-// util functions
-if (!String.toTitleCase) {
-  String.toTitleCase = function(str) {
-    return str.replace(/\w\S*/g, function(txt) {
-      return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
-    });
-  };
-};
-
-if (!String.format) {
-  String.format = function(format) {
-    var args = Array.prototype.slice.call(arguments, 1);
-    return format.replace(/{(\d+)}/g, function(match, number) {
-      return typeof args[number] != 'undefined' ? args[number] : match;
-    });
-  };
-}
-
-function svg_path(d) {
-  var out = '';
-  for (i = 0; i < d.length; ++i) {
-    out += `M ${d[i][0][0]},${d[i][1][0]} l `;
-    for (j = 1; j < d[i][0].length; ++j) {
-      out += `${d[i][0][j]},${d[i][1][j]} `;
-    }
-  }
-  return out;
-}
 
 // finally, launch the server
 const PORT = 8080;
