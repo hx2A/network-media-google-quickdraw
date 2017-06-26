@@ -5,7 +5,6 @@ const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const nedbstore = require('nedb-session-store')(session);
 const uuidV1 = require('uuid/v1');
-const mongojs = require('mongojs');
 
 const util = require('_/util');
 const reference = require('_/reference');
@@ -78,7 +77,7 @@ app.post('/drawings', function(req, res) {
 
   if (last) {
     query._id = {
-      $gt: mongojs.ObjectId(last)
+      $gt: db.toObjectId(last)
     };
   }
 
@@ -109,7 +108,7 @@ app.post('/flag', function(req, res) {
 
   debug('flag drawing', _id);
   
-  var query = {_id: mongojs.ObjectId(_id)};
+  var query = {_id: db.toObjectId(_id)};
   db.google_sketches.update(
     query,
     { $set: {f: true }},
