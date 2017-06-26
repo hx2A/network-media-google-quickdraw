@@ -11,7 +11,7 @@
         <span class='info'><%= ref.isoCodes[datum['c']] -%></span>
       <% } -%>
       <% if (links.cat) { -%>
-        <span class='info'><a href="<%= util.format(links.cat, datum['w']) -%>"><%= String.toTitleCase(datum['w']) -%></a></span>
+        <span class='info'><a href="<%= util.format(links.cat, datum['w']) -%>"><%= util.toTitleCase(datum['w']) -%></a></span>
       <% } else { -%>
         <span class='info'><%= util.toTitleCase(datum['w']) -%></span>
       <% } -%>
