@@ -1,8 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const bleach = require('bleach');
 const debug = require('debug')('itp');
-const mongojs = require('mongojs');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const nedbstore = require('nedb-session-store')(session);
@@ -10,6 +8,7 @@ const uuidV1 = require('uuid/v1');
 
 const reference = require('_/reference');
 const util = require('_/util');
+const db = require('_/db');
 
 // setup express
 var app = express();
@@ -34,16 +33,6 @@ app.use(
   })
 );
 
-// database connection
-var connectionString = "localhost:27017/network-media";
-var db = mongojs(connectionString, ["google_sketches"]);
-
-// input cleaning
-var bleach_options = {
-  mode: 'white',
-  list: []
-};
-
 // *** routes ***
 app.get('/filter', function(req, res) {
   res.render('form', {
@@ -59,9 +48,9 @@ app.get('/filter/:cc/:cat/:rec', function(req, res) {
   debug('Return sketches', req.params.cc, req.params.cat);
 
   var query = {};
-  var cc = bleach.sanitize(req.params.cc, bleach_options).toLowerCase();
-  var cat = bleach.sanitize(req.params.cat, bleach_options).toLowerCase();
-  var rec = bleach.sanitize(req.params.rec, bleach_options).toLowerCase();
+  var cc = util.sanitize(req.params.cc).toLowerCase();
+  var cat = util.sanitize(req.params.cat).toLowerCase();
+  var rec = util.sanitize(req.params.rec).toLowerCase();
 
   if (cc != 'all') {
     query.c = cc;
@@ -87,12 +76,12 @@ app.get('/filter/:cc/:cat/:rec', function(req, res) {
 });
 
 app.post('/drawings', function(req, res) {
-  var cc = bleach.sanitize(req.body.cc, bleach_options).toLowerCase();
-  var cat = bleach.sanitize(req.body.cat, bleach_options).toLowerCase();
-  var rec = bleach.sanitize(req.body.rec, bleach_options).toLowerCase();
+  var cc = util.sanitize(req.body.cc).toLowerCase();
+  var cat = util.sanitize(req.body.cat).toLowerCase();
+  var rec = util.sanitize(req.body.rec).toLowerCase();
   var last = undefined;
   if (req.body.last != undefined) {
-    var last = bleach.sanitize(req.body.last, bleach_options);
+    var last = util.sanitize(req.body.last);
   }
 
   // build name link urls
@@ -152,7 +141,7 @@ app.post('/drawings', function(req, res) {
 });
 
 app.post('/flag', function(req, res) {
-  var _id = bleach.sanitize(req.body._id, bleach_options);
+  var _id = util.sanitize(req.body._id);
 
   debug('flag drawing', _id);
   
