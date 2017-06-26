@@ -92,6 +92,18 @@ app.post('/drawings', function(req, res) {
     var last = bleach.sanitize(req.body.last, bleach_options);
   }
 
+  // build name link urls
+  links = {};
+  if (cc == 'all') {
+    links.cc = `/filter/{0}/${cat}/${rec}`
+  }
+  if (cat == 'all') {
+    links.cat = `/filter/${cc}/{0}/${rec}`
+  }
+  if (rec == 'all') {
+    links.rec = `/filter/${cc}/${cat}/{0}`
+  }
+
   debug('Return drawings', cc, cat, rec);
 
   var query = {};
@@ -121,18 +133,6 @@ app.post('/drawings', function(req, res) {
   query.f = {
     $ne: true
   };
-
-  // build name link urls
-  links = {};
-  if (cc == 'all') {
-    links.cc = `/filter/{0}/${cat}/${rec}`
-  }
-  if (cat == 'all') {
-    links.cat = `/filter/${cc}/{0}/${rec}`
-  }
-  if (rec == 'all') {
-    links.rec = `/filter/${cc}/${cat}/{0}`
-  }
 
   db.google_sketches.find(query).sort('_id').limit(50, function(err, data) {
     if (data.length == 0) {

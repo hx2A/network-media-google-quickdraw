@@ -141,7 +141,7 @@
             data: {_id: id},
             success: function(res) {
               if (res) {
-                $drawing.hide();
+                $drawing.fadeOut(1000);
               } else {
                 console.log(`failed to flag drawing ${id}`);
               }
