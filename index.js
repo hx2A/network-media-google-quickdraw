@@ -4,11 +4,7 @@ const debug = require('debug')('itp');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const nedbstore = require('nedb-session-store')(session);
-const uuidV1 = require('uuid/v1');
 
-const util = require('_/util');
-const reference = require('_/reference');
-const db = require('_/db');
 const user = require('_/user');
 
 // setup express
