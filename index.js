@@ -105,26 +105,6 @@ app.post('/drawings', function(req, res) {
 
 app.post('/flag', user.flag);
 
-// app.post('/flag', function(req, res) {
-//   var _id = util.sanitize(req.body._id);
-// 
-//   debug('flag drawing', _id);
-//   
-//   var query = {_id: db.toObjectId(_id)};
-//   db.google_sketches.update(
-//     query,
-//     { $set: {f: true }},
-//     function(err, data) {
-//       if (data.ok == 1 && data.n == 1) {
-//         res.send(true);
-//       } else {
-//         debug('error flagging drawing', err, data);
-//         res.send(false);
-//       }
-//     }
-//   );
-// });
-
 // finally, launch the server
 const PORT = 8080;
 app.listen(PORT, () => {
