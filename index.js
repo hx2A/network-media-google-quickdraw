@@ -41,4 +41,5 @@ const PORT = 8080;
 app.listen(PORT, () => {
   debug(`Server is running on port ${PORT}`);
 });
+
 module.exports = app;
