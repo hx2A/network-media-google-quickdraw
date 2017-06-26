@@ -51,11 +51,15 @@ span.info {
 label.label {
   margin: 3px;
 }
+span.clickable {
+  cursor: pointer;
+  cursor: hand;
+}
 .overflow {
   height: 500px;
 }
 .left_align {
-    text-align:left;
+  text-align: left;
 }
 h1.title {
   text-align: center;

@@ -113,7 +113,15 @@ app.post('/drawings', function(req, res) {
       $gt: mongojs.ObjectId(last)
     };
   }
-  
+
+  // filter out flagged or inappropriate content
+  query.i = {
+    $ne: true
+  };
+  query.f = {
+    $ne: true
+  };
+
   // build name link urls
   links = {};
   if (cc == 'all') {
@@ -138,6 +146,26 @@ app.post('/drawings', function(req, res) {
       });
     }
   });
+});
+
+app.post('/flag', function(req, res) {
+  var _id = bleach.sanitize(req.body._id, bleach_options);
+
+  debug('flag drawing', _id);
+  
+  var query = {_id: mongojs.ObjectId(_id)};
+  db.google_sketches.update(
+    query,
+    { $set: {f: true }},
+    function(err, data) {
+      if (data.ok == 1 && data.n == 1) {
+        res.send(true);
+      } else {
+        debug('error flagging drawing', err, data);
+        res.send(false);
+      }
+    }
+  );
 });
 
 // util functions

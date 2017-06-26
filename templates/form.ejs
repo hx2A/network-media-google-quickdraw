@@ -96,6 +96,9 @@
                 state = 'done';
               } else {
                 $("#drawings").append(drawings);
+
+                $("span.clickable").unbind('click', flagDrawing);
+                $("span.clickable").click(flagDrawing);
               }
             }
           });
@@ -126,6 +129,25 @@
           var url = `/filter/${country}/${category}/${recognized}`;
           window.location.href = url;
         });
+
+        function flagDrawing() {
+          // get flag's parent drawing div
+          var $drawing = $(this).parents('div.drawing:first');
+          // get the drawing's id
+          var id = $drawing.children('[name=_id]:first').val();
+
+          $.post({
+            url: '/flag',
+            data: {_id: id},
+            success: function(res) {
+              if (res) {
+                $drawing.hide();
+              } else {
+                console.log(`failed to flag drawing ${id}`);
+              }
+            }
+          });
+        }
       });
     </script>
   </div>
