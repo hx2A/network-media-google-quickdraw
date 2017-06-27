@@ -1,9 +1,9 @@
 {
-  "portNumber": 8080,
+  "portNumber": 80,
   "connectionString": "localhost:27017/network-media",
   "collection": "google_sketches",
   "session": {
     "maxAge": 600000,
-    "filename": "/tmp/sessions_dev.db"
+    "filename": "/tmp/sessions_prod.db"
   }
 }
