@@ -22,11 +22,11 @@ div.instructions {
   padding-bottom: 20px;
 }
 div.drawing {
-  width: 200px;
+  width: 180px;
   display: inline;
   float: left;
   margin: 10px;
-  padding: 10px;
+  padding: 10px 10px 0px;
   border: solid 2px #e5e5ef;
 }
 p.drawing {
@@ -45,7 +45,7 @@ span.info {
   display: block;
   float: auto;
   text-align: center;
-  font-size: 14px;
+  font-size: 12px;
   margin-top: 5px;
 }
 label.label {
