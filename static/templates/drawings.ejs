@@ -1,0 +1,26 @@
+<% data.forEach(function(datum) { %>
+  <div class="drawing ui-corner-all">
+    <input name="_id" type="hidden" value="<%= datum['_id'] %>" />
+    <svg viewBox="0 0 255 255" height="200px" width="200px">
+      <path d="<%= util.svg_path(datum['d']) %>" style="fill:none;stroke:#220000;stroke-width:1.0px;stroke-opacity:1" />
+    </svg>
+    <p class="drawing">
+      <% if (links.cc) { %>
+        <span class='info'><a href="<%= util.format(links.cc, datum['c']) %>"><%= datum['cn'] %></a></span>
+      <% } else { %>
+        <span class='info'><%= datum['cn'] %></span>
+      <% } %>
+      <% if (links.cat) { %>
+        <span class='info'><a href="<%= util.format(links.cat, datum['w']) %>"><%= util.toTitleCase(datum['w']) %></a></span>
+      <% } else { %>
+        <span class='info'><%= util.toTitleCase(datum['w']) %></span>
+      <% } %>
+      <% if (links.rec) { %>
+        <span class='info'><a href="<%= util.format(links.rec, ref.recognizedURL[datum['r']]) %>"><%= ref.recognized[datum['r']] %> </a></span>
+      <% } else { %>
+        <span class='info'><%= ref.recognized[datum['r']] %></span>
+      <% } %>
+      <span class='info clickable'>flag</span>
+    </p>
+  </div>
+<% }); %>
