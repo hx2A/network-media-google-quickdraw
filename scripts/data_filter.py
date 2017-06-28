@@ -6,10 +6,12 @@ import numpy as np
 import pandas as pd
 
 DATA_DIR = '/local/DATA/itp/networked_media/google_quickdraw'
+REF_DIR = '../lib/reference/json/'
+
 SIZE_LIMIT = 25
 FILE_LIMIT = None
 
-with open(os.path.join(DATA_DIR, 'lookups', 'iso_codes.json'), 'r') as f:
+with open(os.path.join(REF_DIR, 'iso_codes.json'), 'r') as f:
     iso_codes = json.load(f)
 
 files = glob.glob(os.path.join(DATA_DIR, 'clean', '*.p'))
@@ -57,16 +59,3 @@ json_file = 'data_{0}_{1}.json'.format(SIZE_LIMIT, FILE_LIMIT)
 with open(os.path.join(DATA_DIR, 'filtered', json_file), 'w') as f:
     json.dump(records, f)
     print("Wrote {0} records".format(len(records)))
-
-countries = data_filtered['c'].unique().tolist()
-countries.sort(key=lambda cc: iso_codes[cc])
-
-countries_file = 'countries_{0}_{1}.json'.format(SIZE_LIMIT, FILE_LIMIT)
-with open(os.path.join(DATA_DIR, 'lookups', countries_file), 'w') as f:
-    json.dump(countries, f)
-
-categories = data_filtered['w'].unique().tolist()
-
-categories_file = 'categories_{0}_{1}.json'.format(SIZE_LIMIT, FILE_LIMIT)
-with open(os.path.join(DATA_DIR, 'lookups', categories_file), 'w') as f:
-    json.dump(categories, f)
