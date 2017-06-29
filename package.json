@@ -11,6 +11,7 @@
   "license": "ISC",
   "dependencies": {
     "asyncawait": "^1.0.6",
+    "bcrypt": "^1.0.2",
     "bleach": "^0.3.0",
     "body-parser": "^1.17.2",
     "cookie-parser": "^1.4.3",
