@@ -1,5 +1,6 @@
 {
   "portNumber": 80,
+  "useSSL": true,
   "connectionString": "localhost:27017/network-media",
   "collection": "google_sketches",
   "session": {

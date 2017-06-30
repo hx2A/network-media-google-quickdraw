@@ -1,5 +1,6 @@
 {
   "portNumber": 7956,
+  "useSSL": false,
   "connectionString": "localhost:27017/network-media-dev",
   "collection": "google_sketches",
   "session": {
