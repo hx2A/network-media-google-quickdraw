@@ -1,8 +1,10 @@
 {
   "portNumber": 7956,
   "useSSL": false,
-  "connectionString": "localhost:27017/network-media-dev",
-  "collection": "google_sketches",
+  "mongo": {
+    "connectionString": "localhost:27017/network-media-dev",
+    "collection": "google_sketches"
+  },
   "session": {
     "maxAge": 600000,
     "filename": "/tmp/sessions_dev.db"

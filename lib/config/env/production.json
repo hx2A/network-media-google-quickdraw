@@ -1,8 +1,10 @@
 {
   "portNumber": 80,
   "useSSL": true,
-  "connectionString": "localhost:27017/network-media",
-  "collection": "google_sketches",
+  "mongo": {
+    "connectionString": "localhost:27017/network-media",
+    "collection": "google_sketches"
+  },
   "session": {
     "maxAge": 600000,
     "filename": "/tmp/sessions_prod.db"
